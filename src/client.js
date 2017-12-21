@@ -1,26 +1,24 @@
-"use strict"
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import reducers from './reducers';
+import Routes from './routes';
 
 // create store with middleware
-const middleware = applyMiddleware(thunk);
+const middleware = applyMiddleware(thunk, logger);
 const store = createStore(reducers, middleware);
 
-const Routes = (
+//these are all the routes, start with signup page
+const RoutesProvider = (
     <Provider store={store}>
         <BrowserRouter>
-            <Route exact path="/" component={} />
-            <Route exact path="/" component={} />
-            <Route exact path="/" component={} />
+            { Routes }
         </BrowserRouter>
     </Provider>
-)
-
-render(
-    Routes, document.getElementById('app')
 );
+
+render(RoutesProvider, document.getElementById('app'));

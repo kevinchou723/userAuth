@@ -2,14 +2,12 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 
-//use index.html as react template
-router.get('/', function (req, res) {
-	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-});
+//These are routes for the proxy server running on localhost:3001
 
 //signup user
 router.post('/signup', function (req, res) {
 	var email = req.body.email;
+
 	User.findOne({ 'email': email }, function (err, user) {
 		//return done incase of errors
 		if (err) {
@@ -59,7 +57,12 @@ router.post('/login', function (req, res) {
 				return res.json({ success: false, message: 'user not found' });
 			} else {
 				req.session.userId = user._id;
-				return res.json({ success: true, user: user });
+				var responseData = {
+					sessionId: user._id,
+					firstname: user.firstname,
+					email: user.email
+				};
+				return res.json({ success: true, user: responseData });
 			}
 		})
 	}
@@ -67,13 +70,20 @@ router.post('/login', function (req, res) {
 
 //get user profile
 router.get('/me', function (req, res) {
-	//user the session userid to find out if user is loggedin
+	//use the session userid to find out if user is loggedin
 	User.findById(req.session.userId)
 	.exec(function (err, user) {
-		if (err) {
-			return res.json({ success: false, message: 'user not authenticated' });
+		if(err){
+			return res.json({ success: false, message: err });
+		}else if (!user) {
+			return res.json({ success: true, isAuthenticated: true, message: 'user not authenticated' });
 		} else {
-			return res.json({ success: true, message: 'user authenticated!' });
+			var responseData = {
+				sessionId: user._id,
+				firstname: user.firstname,
+				email: user.email
+			};
+			return res.json({ success: true, isAuthenticated: true, message: 'user authenticated!', user: responseData});
 		}
 	});
 });
