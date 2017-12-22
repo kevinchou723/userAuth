@@ -1,23 +1,30 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import { applyMiddleware, createStore } from 'redux';
+import createHistory from 'history/createBrowserHistory';
+import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import reducers from './reducers';
-import Routes from './routes';
+import App from './components/containers/App';
+
+const history = createHistory();
+
+const initialState = {};
+const middleware = [thunk, routerMiddleware(history), logger]
 
 // create store with middleware
-const middleware = applyMiddleware(thunk, logger);
-const store = createStore(reducers, middleware);
+const configuredMiddleware = applyMiddleware(...middleware);
+const store = createStore(reducers, initialState, configuredMiddleware);
 
 //these are all the routes, start with signup page
 const RoutesProvider = (
     <Provider store={store}>
-        <BrowserRouter>
-            { Routes }
-        </BrowserRouter>
+        <ConnectedRouter history={history}>
+            <App/>
+        </ConnectedRouter>
     </Provider>
 );
 

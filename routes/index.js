@@ -50,11 +50,8 @@ router.post('/login', function (req, res) {
 	if (email && password) {
 		//authenticate the user
 		User.authenticate(email, password, function (err, user) {
-			if (err) {
-				console.log('error is logging in user');
-				throw err;
-			} else if (!user) {
-				return res.json({ success: false, message: 'user not found' });
+			if (err || !user) {
+				return res.json({ success: false, message: 'Incorrect login info' });
 			} else {
 				req.session.userId = user._id;
 				var responseData = {
@@ -76,7 +73,7 @@ router.get('/me', function (req, res) {
 		if(err){
 			return res.json({ success: false, message: err });
 		}else if (!user) {
-			return res.json({ success: true, isAuthenticated: true, message: 'user not authenticated' });
+			return res.json({ success: true, isAuthenticated: false, message: 'user not authenticated' });
 		} else {
 			var responseData = {
 				sessionId: user._id,

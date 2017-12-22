@@ -3,14 +3,16 @@ import {
     SET_USER_EMAIL,
     SET_USER_FIRSTNAME,
     SET_USER_SESSION_ID,
-    SET_IS_USER_AUTHENTICATED
+    SET_IS_USER_AUTHENTICATED,
+    SET_FLASH_MESSAGE
 } from '../actions/UserActions';
 
 const INITIAL_STATE = Map({
     isAuthenticated: false,
     firstname: '',
     email: '',
-    sessionId: ''
+    sessionId: '',
+    flashMessage: ''
 });
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,7 +24,9 @@ export default (state = INITIAL_STATE, action) => {
         case SET_USER_FIRSTNAME:
             return state.set('firstname', action.firstname);
         case SET_USER_SESSION_ID:
-            return state.set('sessionId', action.sessionId);;
+            return state.set('sessionId', action.sessionId);
+        case SET_FLASH_MESSAGE:
+            return state.set('flashMessage', action.message);
         default:
             return state;
     }

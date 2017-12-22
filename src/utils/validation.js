@@ -17,7 +17,7 @@ export const hasErrors = (form) => {
     }
 }
 
-// check if all fields are filled
-export const allFieldsCompleted = (form) => {
-    return form.registeredFields && form.values && Object.keys(form.registeredFields).length == Object.keys(form.values).length;
+// check if all fields are filled and no errors
+export const allFieldsCompleted = (form, hasErrors) => {
+    return form.registeredFields && form.values && !hasErrors && Object.keys(form.registeredFields).length == Object.keys(form.values).length;
 }

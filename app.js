@@ -1,55 +1,26 @@
 var express = require('express');
+var app = express();
 var path = require('path');
-// var logger = require('morgan');
-// var cookieParser = require('cookie-parser');
-// var bodyParser = require('body-parser');
+
 var httpProxy = require('http-proxy');
 
-// var routes = require('./routes');
-//require mongoose and express-session
-// var mongoose = require('mongoose');
-// var session = require('express-session');
-// var MongoStore = require('connect-mongo')(session);
-
-var app = express();
-
-// app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
-
+//set up proxy server
+//this proxy crud request to the api server
 const apiProxy = httpProxy.createProxyServer({
 	target: "http://localhost:3001"
 });
 
+//endpoints with /api will be redirected to proxy
 app.use('/api', function (req, res) {
 	apiProxy.web(req, res);
 });
 
 //middleware to define folder for static files
-
 app.use(express.static(path.join(__dirname, 'public')));
 // //use index.html as react template
 app.get('*', function (req, res) {
 	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 });
-// //connect to local database user_app
-// mongoose.connect('mongodb://localhost:27017/user_app');
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, '# MongoDB - connection error: '));
-
-// //use sessions for tracking logins
-// app.use(session({
-// 	secret: 'SECRET_KEY',
-// 	resave: true,
-// 	saveUninitialized: false,
-// 	store: new MongoStore({
-// 		mongooseConnection: db
-// 	})
-// }));
-
-// //use routes
-// app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

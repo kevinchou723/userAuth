@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/kevinchou723/loginsignup#readme",
   "dependencies": {
+    "autoprefixer": "^7.2.3",
     "axios": "^0.17.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -35,21 +36,26 @@
     "http-proxy": "^1.16.2",
     "immutable": "^3.8.2",
     "mongoose": "^4.13.7",
-    "morgan": "~1.9.0",
     "parse-full-name": "^1.2.3",
+    "precss": "^2.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.1",
+    "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.7.2",
-    "redux-batch-middleware": "^0.2.0",
     "redux-form": "^7.2.0",
-    "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.2.0",
-    "serve-favicon": "~2.4.5"
+    "url-loader": "^0.6.2"
   },
   "devDependencies": {
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.6",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.0.9",
     "redux-logger": "^3.0.6",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
     "webpack": "^3.10.0"
   }
 }
