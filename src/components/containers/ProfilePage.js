@@ -27,7 +27,7 @@ class ProfilePage extends React.Component {
             <div className="mainWrapper">
                 <div className="profileContainer">
                     <div className="profileWrapper">
-                        <img className="profileImage" src="../profile-picture.png" />
+                        <img className="profileImage" src={require('../../../public/images/profile-picture.png')} />
                         <div className="profileMessage">Welcome {firstname}</div>
                         <div className="profileMessage">Your email is {email}</div>
                         <div className="logoutButton" onClick={this.handleLogoutClick}>Logout</div>
