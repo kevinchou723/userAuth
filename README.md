@@ -38,3 +38,5 @@ Once all the node modules are done installing, run
 ```
 npm start
 ```
+
+You can now view the app on localhost 3000 with the api proxy running on localhost 3001
