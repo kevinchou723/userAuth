@@ -41,6 +41,12 @@ npm start
 
 You can now view the app on localhost 3000 with the api proxy running on localhost 3001
 
-## Some Change
+## Some Changes
 
-I made some changes to the backend endpoints to add a /api, for example, to login user I would post to /api/login
+I made some changes to the backend endpoints to add a /api.
+
+For example, to login user I would post to 
+
+```
+/api/login
+```
